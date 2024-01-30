@@ -1,5 +1,5 @@
 import itertools
-import concurrent.futures
+# import concurrent.futures
 # from ftlangdetect import detect
 
 # def is_english_language(text):
@@ -55,24 +55,38 @@ my_words = {'ALICE', 'COMMA'}
 alphabet = 'ABCDEFGHIKLMNOPQRSTUVWXYZ'
 keys = itertools.permutations(alphabet, 25)
 
-def decrypt_key(key):
+small_count = 0
+
+# def decrypt_key(key):
+#     matrix = create_matrix(key)
+#     plaintext = decrypt_playfair(cipher_text, matrix)
+#     if contains_common_words(plaintext, my_words):
+#         return f"Key: {''.join(key)}\nPlaintext: {plaintext}\n\n"
+#     return None
+
+# def main():
+#     with concurrent.futures.ProcessPoolExecutor() as executor:
+#         future_to_key = {executor.submit(decrypt_key, key): key for key in keys}
+
+#         for future in concurrent.futures.as_completed(future_to_key):
+#             result = future.result()
+#             print('.', end='', flush=True)  
+
+#             if result:
+#                 with open('decryption_results.txt', 'a') as file:
+#                     file.write(result)
+
+# if __name__ == "__main__":
+#     main()
+
+# Brute force
+for key in keys:
     matrix = create_matrix(key)
     plaintext = decrypt_playfair(cipher_text, matrix)
     if contains_common_words(plaintext, my_words):
-        return f"Key: {''.join(key)}\nPlaintext: {plaintext}\n\n"
-    return None
-
-def main():
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        future_to_key = {executor.submit(decrypt_key, key): key for key in keys}
-
-        for future in concurrent.futures.as_completed(future_to_key):
-            result = future.result()
-            print('.', end='', flush=True)  
-
-            if result:
-                with open('decryption_results.txt', 'a') as file:
-                    file.write(result)
-
-if __name__ == "__main__":
-    main()
+        with open('decryption_results.txt', 'a') as file:
+            file.write(f"Key: {''.join(key)}\nPlaintext: {plaintext}\n\n")
+    small_count += 1
+    print("." * small_count)
+    if small_count == 100:
+        small_count = 0
