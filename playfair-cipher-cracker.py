@@ -54,7 +54,7 @@ for key in keys:
     matrix = create_matrix(key)
     plaintext = decrypt_playfair(cipher_text, matrix)
     if is_english_language(plaintext):
-        with open('decryption_results.txt', 'w') as file:
+        with open('decryption_results.txt', 'a') as file:
             file.write(f"Key: {''.join(key)}\nPlaintext: {plaintext}\n\n")
 
     small_count += 1
