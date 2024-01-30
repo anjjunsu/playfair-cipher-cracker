@@ -1,5 +1,4 @@
 import itertools
-import math
 # from ftlangdetect import detect
 
 def is_english_language(text):
@@ -48,7 +47,7 @@ cipher_text = "SUUVQPUQXOBFXKQPZGKSPMVSQPVXVARNNBIPZPATZNONZFIYGITZZCQPRKKQWFAXU
 
 alphabet = 'ABCDEFGHIKLMNOPQRSTUVWXYZ'
 keys = itertools.permutations(alphabet, 25)
-total_permutations = math.factorial(25)
+small_count = 0
 
 # Brute force
 for key in keys:
@@ -57,3 +56,8 @@ for key in keys:
     if is_english_language(plaintext):
         with open('decryption_results.txt', 'w') as file:
             file.write(f"Key: {''.join(key)}\nPlaintext: {plaintext}\n\n")
+
+    small_count += 1
+    print("." * small_count)
+    if small_count == 100:
+        small_count = 0
