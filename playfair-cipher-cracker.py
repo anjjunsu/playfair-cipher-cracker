@@ -5,7 +5,9 @@ def is_english_language(text):
     language_code = detect(text=text, low_memory=False)
     target_language_code = 'en'
 
-    return target_language_code == language_code['lang']
+    if target_language_code == language_code['lang']:
+        print(f"score: {language_code['score']}")
+        return True
 
 def create_matrix(key):
     matrix = []
@@ -55,7 +57,7 @@ for key in keys:
     plaintext = decrypt_playfair(cipher_text, matrix)
     if is_english_language(plaintext):
         with open('decryption_results.txt', 'a') as file:
-            file.write(f"Key: {''.join(key)}\nPlaintext: {plaintext}\n\n")
+            file.write(f"Key: {''.join(key)}\nPlaintext: {plaintext}\nscore:\n")
 
     small_count += 1
     print("." * small_count)
