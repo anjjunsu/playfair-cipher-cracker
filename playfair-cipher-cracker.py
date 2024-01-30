@@ -1,5 +1,5 @@
 import itertools
-# from ftlangdetect import detect
+from ftlangdetect import detect
 
 def is_english_language(text):
     language_code = detect(text=text, low_memory=False)
