@@ -64,8 +64,9 @@ def decrypt_key(key):
 
 def main():
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ProcessPoolExecutor() as executor:
         results = executor.map(decrypt_key, keys)
+        print('.', end='', flush=True)
 
         with open('decryption_results.txt', 'a') as file:
             for result in results:
