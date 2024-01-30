@@ -63,14 +63,15 @@ def decrypt_key(key):
     return None
 
 def main():
-
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        results = executor.map(decrypt_key, keys)
-        print('.', end='', flush=True)
+        future_to_key = {executor.submit(decrypt_key, key): key for key in keys}
 
-        with open('decryption_results.txt', 'a') as file:
-            for result in results:
-                if result:
+        for future in concurrent.futures.as_completed(future_to_key):
+            result = future.result()
+            print('.', end='', flush=True)  
+
+            if result:
+                with open('decryption_results.txt', 'a') as file:
                     file.write(result)
 
 if __name__ == "__main__":
