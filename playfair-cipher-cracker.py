@@ -5,7 +5,7 @@ def is_english_language(text):
     language_code = detect(text=text, low_memory=False)
     target_language_code = 'en'
 
-    if target_language_code == language_code['lang'] and language_code['score'] > 0.9:
+    if target_language_code == language_code['lang']:
         return True
 
 def create_matrix(key):
